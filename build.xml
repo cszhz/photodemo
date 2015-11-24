@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<project name ="photodemo" default ="getBaseDir" basedir =".">
+		<property  name ="base" value ="."/>
+	    <property  name ="classes" value ="${base}/WEB-INF/classes"/>
+	    <property  name ="build" value ="./build"/>
+		<property  name="src" value="${basedir}/WebContent"></property>
+	     
+	    <target  name="getBaseDir" depends="war">
+	               <echo message="The base dir is: ${basedir}"/>
+	        	   <mkdir dir="${base}"/>
+	    </target>
+	    	
+	    	
+	    <target  name ="clean">
+	        <delete dir ="${build}"/>
+	    </target>
+	    
+ <target name="copy" depends ="clean">
+ 	    	<copy  todir="${build}">
+	     		<fileset dir="${src}"></fileset>
+	     	</copy>
+   </target>	     		               	
+	               	
+	     <target name ="compile"  depends ="copy">
+	        <javac srcdir ="${src}"  destdir ="${build}" debug="on">
+			</javac>
+	        
+	     </target>
+	 
+    <target name ="war" depends ="copy">
+       <war destfile ="${build}/photodemo.war" needxmlfile="false">                                                                                       
+           <fileset dir ="${src}"  includes ="**/*"/>
+    		
+       </war>
+					
+	 </target>
+	
+</project>
